@@ -1,1 +1,1 @@
-a=0;data.split("").forEach(e->e=="("?a++:a--);console.log(v)
+a=0;d.split("").forEach(e->e=="("?a++:a--);console.log(a)
