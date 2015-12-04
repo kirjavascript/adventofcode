@@ -1,3 +1,6 @@
+; AoC Day1 in 68000 Motorola Assembly
+; thom@kirjava.xyz
+
     lea	($FFFF0000).w,a0
     clr.l   d0
 
