@@ -1,5 +1,3 @@
-var q = 0
-
 var i = require("fs")
     .readFileSync("3",'utf8')
     .split("")
