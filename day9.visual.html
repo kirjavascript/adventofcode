@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head><title>9</title></head>
+<body><p>Faerun to Norrath = 129
+Faerun to Tristram = 58
+Faerun to AlphaCentauri = 13
+Faerun to Arbre = 24
+Faerun to Snowdin = 60
+Faerun to Tambi = 71
+Faerun to Straylight = 67
+Norrath to Tristram = 142
+Norrath to AlphaCentauri = 15
+Norrath to Arbre = 135
+Norrath to Snowdin = 75
+Norrath to Tambi = 82
+Norrath to Straylight = 54
+Tristram to AlphaCentauri = 118
+Tristram to Arbre = 122
+Tristram to Snowdin = 103
+Tristram to Tambi = 49
+Tristram to Straylight = 97
+AlphaCentauri to Arbre = 116
+AlphaCentauri to Snowdin = 12
+AlphaCentauri to Tambi = 18
+AlphaCentauri to Straylight = 91
+Arbre to Snowdin = 129
+Arbre to Tambi = 53
+Arbre to Straylight = 40
+Snowdin to Tambi = 15
+Snowdin to Straylight = 99
+Tambi to Straylight = 70</p></body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+<script>
+/*
+    created by snkenjoi/kirjava/colourful/cake
+*/
+    l = []
+
+    n = []
+
+    h = []
+
+    p = []
+
+    j = []
+
+    c = {w:1200,h:800}
+
+    data = document.getElementsByTagName("p")[0].innerHTML.split("\n")
+
+    document.getElementsByTagName("p")[0].innerHTML = ''
+
+    data = data.map(d => {
+        q=d.match(/(.*) to (.*) = (\d*)/)
+        l.indexOf(q[1])==-1&&l.push(q[1])
+        l.indexOf(q[2])==-1&&l.push(q[2])
+        return {"source":q[1],"target":q[2],"w":q[3]}
+    })
+    l.forEach(d => n.push({"n":d}))
+    l.forEach((d,i) => j.push(i))
+
+    data = data.map(d => ({"source":l.indexOf(d.source),"target":l.indexOf(d.target),"w":d.w}))
+
+    p = JSON.parse(JSON.stringify(data))
+
+    k = d3.scale.category20()
+
+    s = d3.select("body")
+        .append("svg")
+        .attr("width",c.w)
+        .attr("height",c.h)
+
+    g = s.append("g")
+
+    f = d3.layout.force()
+        .charge(-300)
+        .friction(0.7)
+        .linkDistance(500)
+        .gravity(0.1)
+        .size([c.w, c.h])
+
+    node = s.selectAll(".node")
+        .data(n)
+
+    node.exit().remove()
+
+    nodeGroup = node.enter()
+        .append('g')
+        .attr("class", "nodeGroup")
+        .call(f.drag)
+
+    nodeGroup
+        .append("circle")
+        .attr("class", "node")
+        .attr("r", 0)
+        .style("stroke-width", '3px')
+        .style("fill", (d,i) => k(i))
+        .style("stroke", '#000')
+        .transition()
+        .duration(500)
+        .delay((d,i) => i*80)
+        .ease("elastic")
+        .attr("r", 50)
+
+    nodeGroup
+        .append("text")
+        .attr("class","text")
+        .style("font-size", "0px")
+        .style("font-family", "sans")
+        .style("font-weight", "900")
+        .style("stroke", "#000")
+        .style("stroke-width", "3px")
+        .attr("dy",'0.4em')
+        .style("fill", (d,i) => d3.rgb(k(i)).darker())
+        .text(d => d.n)
+        .transition()
+        .duration(500)
+        .delay((d,i) => i*180)
+        .ease("elastic")
+        .style("font-size", "40px")
+
+    f.on("tick", () => {
+        d3.selectAll('.link')
+            .attr("x1", function(d) { return d.source.x; })
+            .attr("y1", function(d) { return d.source.y; })
+            .attr("x2", function(d) { return d.target.x; })
+            .attr("y2", function(d) { return d.target.y; });
+
+        d3.selectAll('.linkLabel')
+            .attr("x", function(d) { return d.target.x+(d.target.x-d.source.x) })
+            .attr("y", function(d) { return d.target.y+(d.target.y-d.source.y) })
+
+
+        d3.selectAll('.node')
+            .attr("cx", function(d) { return d.x; })
+            .attr("cy", function(d) { return d.y; });
+        d3.selectAll('.text')
+            .attr("x", function(d) { return d.x; })
+            .attr("y", function(d) { return d.y; })
+            .attr("dx", function(){return -this.getBBox().width/2})
+    });
+
+    function ln() {
+        link = g.selectAll(".link")
+            .data(h);
+
+        link.exit().remove();
+
+        link.enter()
+            .append("line")
+            .attr("class", "link")
+            .style("stroke", '#000')
+            .style("stroke-width", "3px")
+            .style("stroke-opacity", 0)
+            .transition()
+            .duration(50)
+            .ease("quad")
+            .style("stroke-opacity", .6)
+    }
+
+    data.forEach((d,i) => {
+        setTimeout(() => {
+            h.push(d)
+            ln()
+            f
+                .nodes(n)
+                .links(h)
+                .start()
+        },i*80)
+    })
+
+    var linkCurves = d3.svg.line()
+        .x(function(d) { return d.x; })
+        .y(function(d) { return d.y; })
+        .interpolate("linear")
+
+    function shuffle(n){
+        for(var j, x, i = n.length; i; j = Math.floor(Math.random() * i), x = n[--i], n[i] = n[j], n[j] = x);
+        return n;
+    }
+    // j = arr
+    function getLink(a,b) {
+        for(var i=0;i<p.length;i++) {
+            if(p[i].source==a&&p[i].target==b) return i;
+            else if(p[i].source==b&&p[i].target==a) return i;
+        }
+    }
+
+    function tryPath() {
+        if(data.length!=h.length) return 31337;
+        j = shuffle(j)
+        v = []
+        for(var i=0;i<j.length-1;i++) {
+            v.push(getLink(j[i],j[i+1]))
+        }
+        clr = k(Math.random())
+        // g.selectAll(".srch")
+        //     .transition()
+        //     .duration(200)
+        //     .attr("stroke-width", 0)
+        //     .remove()
+        t = 0;
+        for(var i=0;i<v.length;i++) {
+            n = h[v[i]]
+            t+=parseInt(n.w)
+            g.append("path")
+                .attr("class", "srch")
+                .attr("d", linkCurves([
+                    {"x":n.source.x,"y":n.source.y},
+                    {"x":n.target.x,"y":n.target.y},
+                ]))
+                .attr("stroke", clr)
+                .attr("fill", "none")
+                .attr("stroke-width", 0)
+                .transition()
+                .duration(100)
+                .attr("stroke-width", 10)
+                .transition()
+                .duration(100)
+                .attr("stroke-width", 0)
+                .remove()
+        }
+        return t;
+    }
+
+    var min = 31337
+    var max = 0
+
+    g.append("text")
+
+    setInterval(function(){
+        w = tryPath()
+        if(w==31337) txt = "Loading..."
+        else {
+            min = w<min?w:min
+            max = w>max?w:max
+            txt = "min("+min+") max("+max+")"
+        }
+        g.select("text")
+            .text(txt)
+            .attr("x", 20)
+            .attr("y", 20)
+            .style("font-size","20px")
+    },50);
+
+</script>
+</html>
