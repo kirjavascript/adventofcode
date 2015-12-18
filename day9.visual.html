@@ -98,8 +98,8 @@ Tambi to Straylight = 70</p></body>
         .style("fill", (d,i) => k(i))
         .style("stroke", '#000')
         .transition()
-        .duration(500)
-        .delay((d,i) => i*80)
+        .duration(700)
+        .delay((d,i) => i*200)
         .ease("elastic")
         .attr("r", 50)
 
@@ -115,8 +115,8 @@ Tambi to Straylight = 70</p></body>
         .style("fill", (d,i) => d3.rgb(k(i)).darker())
         .text(d => d.n)
         .transition()
-        .duration(500)
-        .delay((d,i) => i*180)
+        .duration(4000)
+        .delay((d,i) => i*200)
         .ease("elastic")
         .style("font-size", "40px")
 
