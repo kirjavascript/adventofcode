@@ -13,7 +13,7 @@ window.addEventListener("load", _ => {
 
     data = data.split("\n").map(d=>d.split("").map(d=>d=='#'?1:0))
 
-    var m,dxdy=100,du=10,n=5,ma=0,w=dxdy*n;
+    var dxdy=100,du=1,n=5,ma=0,w=dxdy*n;
 
     var s = d3.select("body").append("svg")
             .attr("width",w+50).attr("height",w)
@@ -32,21 +32,21 @@ window.addEventListener("load", _ => {
 
     var i=0;
 
+    var m = g.selectAll("rect")
+        .data(flat);
+
+    m.enter()
+        .append("rect")
+        .attr({
+            x: (d,i) => (i%dxdy)*n,
+            y: (d,i) => (i/dxdy|0)*n,
+            width: n,
+            height: n
+        })
+
     ~function(){
 
         var flat = [].concat.apply([], data);
-
-        m = g.selectAll("rect")
-            .data(flat);
-
-        m.enter()
-            .append("rect")
-            .attr({
-                x: (d,i) => (i%dxdy)*n,
-                y: (d,i) => (i/dxdy|0)*n,
-                width: n,
-                height: n
-            })
 
         m.style("fill", d => d ? "steelblue" : "white")
 
@@ -59,6 +59,7 @@ window.addEventListener("load", _ => {
         data[dxdy-1][dxdy-1] = 1;
 
         i<=100&&setTimeout(arguments.callee,du);
+
     }();
 
 });
