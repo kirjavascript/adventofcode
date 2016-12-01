@@ -20,11 +20,21 @@ window.onload = function() {
             //.style("mix-blend-mode",d[1]=="toggle"?"difference":"normal")
 
             ctx.beginPath();
-            ctx.fillStyle = d[1]=="turn off"?"#000":"#FFF";
-            if(d[1]=="toggle") ctx.globalCompositeOperation = 'xor';
-            else if (d[1]=="turn on") ctx.globalCompositeOperation = 'source-over';
-            ctx.rect(d[2], d[3], d[5]-d[2], d[6]-d[3]);
-            ctx.fill();
+            if(d[1]=="toggle") {
+                // ctx.fillStyle = "#FFF";
+                // ctx.fillRect(d[2], d[3], d[5]-d[2], d[6]-d[3]);
+                // ctx.globalCompositeOperation = 'xor';
+            }
+            else if (d[1]=="turn on") {
+                ctx.fillStyle = "#FFF";
+                ctx.globalCompositeOperation="source-over";
+                ctx.fillRect(d[2], d[3], d[5]-d[2], d[6]-d[3]);
+            }
+            else {
+                ctx.fillStyle = "#000";
+                //ctx.globalCompositeOperation="source-over";
+                ctx.fillRect(d[2], d[3], d[5]-d[2], d[6]-d[3]);
+            }
             ctx.closePath();
 
         })
