@@ -1,0 +1,1 @@
+k=16;[...document.body.innerText].map(d=>d=='\n'?alert(10-k.toString`2`.length):k=k&{U:448,L:292,R:73,D:7}[d]?k:(z=/[LR]/.test(d)?1:3,/[UL]/.test(d)?k<<z:k>>z))
