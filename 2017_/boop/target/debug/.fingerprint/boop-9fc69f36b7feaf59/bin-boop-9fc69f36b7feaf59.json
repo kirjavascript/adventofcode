@@ -1,1 +1,0 @@
-{"rustc":17880992992397706312,"features":"[]","target":4619226922963909761,"profile":731176819336294830,"deps":[["rand v0.3.18",16049931797588674242]],"local":[{"MtimeBased":[[1512080723,887368568],"/home/thom/dev/advent/2017/boop/target/debug/.fingerprint/boop-9fc69f36b7feaf59/dep-bin-boop-9fc69f36b7feaf59"]}],"rustflags":[]}
