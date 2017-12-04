@@ -1,7 +1,3 @@
-fn main() {
-    aoc3_d1(361527);
-}
-
 #[derive(Debug)]
 struct Cell {
     n: u32,
@@ -17,7 +13,22 @@ enum Direction {
     RIGHT,
 }
 
-fn aoc3_d1(num: u32) {
+fn main() {
+    let input = 361527;
+    aoc3(input, |i, _, _, _| i); // part 1
+    aoc3(input, |_, board, x, y| {
+        let mut amt = 0;
+        for cell in (&board).iter() {
+            let &Cell {x: dx, y: dy, n: dn} = cell;
+            if (x == dx-1 && (y == dy || y == dy-1 || y == dy + 1)) || (x == dx+1 && (y == dy || y == dy-1 || y == dy + 1)) || (y == dy + 1 && x == dx) || (y == dy - 1 && x == dx) {
+                amt += dn;
+            }
+        }
+        amt
+    }); // part 2
+}
+
+fn aoc3(num: u32, func: fn(u32, &mut Vec<Cell>, i32, i32) -> u32) {
 
     let max = num+1;
     let mut board: Vec<Cell> = Vec::new();
@@ -29,9 +40,21 @@ fn aoc3_d1(num: u32) {
     let mut speed = 1;
     let mut velocity = 0;
 
-    for i in 1..max {
+    for _i in 1..max {
+        let qty;
+        if x == 0 && y == 0 {
+            qty = 1;
+        }
+        else {
+            qty = func(_i, &mut board, x, y);
+        }
+        if qty > num {
+            println!("part 2: {}", qty);
+            return;
+        }
+
         board.push(Cell {
-            n: i,
+            n: qty,
             x: x,
             y: y,
         });
@@ -76,6 +99,5 @@ fn aoc3_d1(num: u32) {
     }
 
     let &Cell {x: a, y: b, n: _} = board.last().unwrap();
-
-    println!("{:?}", a.abs() + b.abs());
+    println!("part 1: {:?}", a.abs() + b.abs());
 }
