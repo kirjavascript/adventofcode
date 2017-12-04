@@ -39,7 +39,4 @@ fn aoc3_d1(num: u32) {
 
     }
 
-
-    println!("{} {}", top, left);
-
 }
