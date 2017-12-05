@@ -17,14 +17,14 @@ fn main() {
     let input = 361527;
     aoc3(input, |i, _, _, _| i); // part 1
     aoc3(input, |_, board, x, y| {
-        let mut amt = 0;
+        let mut qty = 0;
         for cell in (&board).iter() {
             let &Cell {x: dx, y: dy, n: dn} = cell;
             if (x == dx-1 && (y == dy || y == dy-1 || y == dy + 1)) || (x == dx+1 && (y == dy || y == dy-1 || y == dy + 1)) || (y == dy + 1 && x == dx) || (y == dy - 1 && x == dx) {
-                amt += dn;
+                qty += dn;
             }
         }
-        amt
+        qty
     }); // part 2
 }
 
