@@ -1,12 +1,9 @@
 use std::env;
 use std::fs::File;
 use std::io::prelude::*;
+use std::collections::HashSet;
 
 fn main() {
-    aoc4();
-}
-
-fn aoc4() {
     let args: Vec<String> = env::args().collect();
     if args.len() < 2 {
         println!("bork");
@@ -20,11 +17,16 @@ fn aoc4() {
     f.read_to_string(&mut contents)
         .expect("something went wrong reading the file");
 
+    aoc4(&contents);
+}
+
+fn aoc4(contents: &String) {
+
     let lines = contents.split("\n");
     let mut count = 0;
 
     for passphrase in lines {
-        if is_valid(passphrase) {
+        if is_valid(passphrase) && passphrase != "" {
             count += 1;
         }
     }
@@ -33,20 +35,18 @@ fn aoc4() {
 }
 
 fn is_valid(passphrase: &str) -> bool {
-    let mut collect: Vec<&str> = Vec::new();
 
-    if passphrase.split(" ").count() < 2 {
-        return false;
+    // part 1
+    // let mut collect = passphrase.split(" ").collect::<HashSet<&str>>();
+
+    // part 2
+    let mut collect = HashSet::new();
+    for x in passphrase.split(" ") {
+        let mut chars: Vec<char> = x.chars().collect();
+        chars.sort_by(|a, b| b.cmp(a));
+
+        collect.insert(chars);
     }
 
-    for word in passphrase.split(" ") {
-        for prev in collect.iter() {
-            if prev == &word {
-                return false;
-            }
-        }
-
-        collect.push(word);
-    }
-    true
+    passphrase.split(" ").count() == collect.len()
 }
