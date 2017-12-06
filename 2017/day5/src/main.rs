@@ -2,6 +2,8 @@ use std::env;
 use std::fs::File;
 use std::io::prelude::*;
 
+fn nop() {}
+
 fn main() {
     let args: Vec<String> = env::args().collect();
     if args.len() < 2 {
@@ -16,19 +18,32 @@ fn main() {
     f.read_to_string(&mut contents)
         .expect("something went wrong reading the file");
 
-    let mut qty: Vec<i32> = Vec::new();
+    let mut instructions: Vec<i32> = Vec::new();
 
-    // let list = list.map()
     for num in contents.split("\n") {
         let digit = num.parse::<i32>();
         match digit {
-            Ok(v) => qty.push(v),
+            Ok(v) => instructions.push(v),
             Err(_) => nop(),
         }
     }
 
-    println!("{:?}", qty);
-}
+    let max = (instructions.len()-1) as i32;
+    let mut pc: i32 = 0;
+    let mut steps = 0;
 
-fn nop() {
+    loop {
+        if pc < 0 || pc > max {
+            break;
+        }
+
+        let current = instructions[pc as usize];
+        instructions[pc as usize] += 1;
+        pc += current;
+
+        steps += 1;
+    }
+
+
+    println!("{:#?}", steps);
 }
