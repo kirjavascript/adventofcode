@@ -32,13 +32,21 @@ fn main() {
     let mut pc: i32 = 0;
     let mut steps = 0;
 
+
     loop {
         if pc < 0 || pc > max {
             break;
         }
 
         let current = instructions[pc as usize];
-        instructions[pc as usize] += 1;
+
+        if current > 2 {
+            instructions[pc as usize] -= 1;
+        }
+        else {
+            instructions[pc as usize] += 1;
+        }
+
         pc += current;
 
         steps += 1;
