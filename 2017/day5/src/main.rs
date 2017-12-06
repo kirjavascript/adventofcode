@@ -28,16 +28,10 @@ fn main() {
         }
     }
 
-    let max = (instructions.len()-1) as i32;
     let mut pc: i32 = 0;
     let mut steps = 0;
 
-
-    loop {
-        let current = match instructions.get_mut(pc as usize) {
-            Some(v) => v,
-            None => break,
-        };
+    while let Some(current) = instructions.get_mut(pc as usize) {
         pc += *current;
 
         if *current > 2 {
@@ -49,7 +43,6 @@ fn main() {
 
         steps += 1;
     }
-
 
     println!("{:#?}", steps);
 }
