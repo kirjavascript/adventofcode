@@ -1,4 +1,5 @@
-use std::cmp;
+// use std::cmp;
+use std::collections::HashSet;
 
 fn main() {
     let input = "5	1	10	0	1	7	13	14	3	12	8	10	7	12	0	6";
@@ -12,12 +13,16 @@ fn main() {
     }
 
     let top_val = get_max(&banks);
+    let mut set = HashSet::new();
+
+    set.insert(banks.clone());
 
     println!("{:?}", top_val);
 }
 
-fn get_max(banks: &[u32]) -> u32 {
-    banks.iter().fold(0, |acc, c| cmp::max(acc, *c))
+fn get_max(banks: &[u32]) -> usize {
+    let max = banks.iter().max().unwrap();
+    banks.iter().position(|&p| p == *max).unwrap()
 }
 
 // fn main() {
