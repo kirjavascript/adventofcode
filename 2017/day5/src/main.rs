@@ -20,12 +20,15 @@ fn main() {
 
     // let list = list.map()
     for num in contents.split("\n") {
-        if num != "" {
-            let digit = num.parse::<i32>().unwrap();
-            qty.push(digit);
+        let digit = num.parse::<i32>();
+        match digit {
+            Ok(v) => qty.push(v),
+            Err(_) => nop(),
         }
     }
 
-
     println!("{:?}", qty);
+}
+
+fn nop() {
 }
