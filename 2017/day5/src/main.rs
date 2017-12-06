@@ -34,20 +34,18 @@ fn main() {
 
 
     loop {
-        if pc < 0 || pc > max {
-            break;
-        }
+        let current = match instructions.get_mut(pc as usize) {
+            Some(v) => v,
+            None => break,
+        };
+        pc += *current;
 
-        let current = instructions[pc as usize];
-
-        if current > 2 {
-            instructions[pc as usize] -= 1;
+        if *current > 2 {
+            *current -= 1;
         }
         else {
-            instructions[pc as usize] += 1;
+            *current += 1;
         }
-
-        pc += current;
 
         steps += 1;
     }
