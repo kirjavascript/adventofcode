@@ -12,15 +12,16 @@ fn main() {
         banks[index] = element.parse::<u32>().unwrap();
     }
 
-    let top_val = get_max(&banks);
-    let mut set = HashSet::new();
+    let index = get_max_index(&banks);
+    // let mut set = HashSet::new();
+    // set.insert(banks.clone());
+    let high_slot = banks[index];
+    banks[index] = 0;
 
-    set.insert(banks.clone());
-
-    println!("{:?}", top_val);
+    println!("{:#?}", (index, banks, high_slot));
 }
 
-fn get_max(banks: &[u32]) -> usize {
+fn get_max_index(banks: &[u32]) -> usize {
     let max = banks.iter().max().unwrap();
     banks.iter().position(|&p| p == *max).unwrap()
 }
