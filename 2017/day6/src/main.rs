@@ -20,7 +20,7 @@ fn main() {
             break (pos, banks, history.iter().count() - pos);
         }
         // count it
-        history.push(banks.clone());
+        history.push(banks);
 
         // iterate
         let index = get_max_index(&banks);
