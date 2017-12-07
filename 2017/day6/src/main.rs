@@ -1,8 +1,7 @@
-use std::collections::HashSet;
+const BANK_QTY: usize = 16;
 
 fn main() {
     let input = "5	1	10	0	1	7	13	14	3	12	8	10	7	12	0	6";
-    const BANK_QTY: usize = 16;
 
     // setup memory banks
     let mut banks: [u32; BANK_QTY] = [0; BANK_QTY];
@@ -12,22 +11,16 @@ fn main() {
         banks[index] = element.parse::<u32>().unwrap();
     }
 
-    let index = get_max_index(&banks);
-
-    let mut set = HashSet::new();
-    let mut iteration = 0;
-
+    let mut history: Vec<_> = Vec::new();
 
     let result = loop {
-        // println!("{:?}", (banks));
-
-        // add array to hashset and check lengths
-        set.insert(banks.clone());
-        iteration += 1;
-
-        if iteration != set.len() {
-            break set.len();
+        // check if prev exists
+        if history.iter().any(|&d| d == banks) {
+            let pos = history.iter().position(|&p| p == banks).unwrap();
+            break (pos, banks, history.iter().count() - pos);
         }
+        // count it
+        history.push(banks.clone());
 
         // iterate
         let index = get_max_index(&banks);
