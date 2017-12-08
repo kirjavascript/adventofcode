@@ -20,29 +20,55 @@ fn get_file() -> Result<String, &'static str> {
     Ok(contents)
 }
 
-fn main() {
-    match get_file() {
-        Ok(contents) => {
-            let contents = contents
-                .split("\n")
-                .filter(|&s| s.len() != 0)
-                .collect::<Vec<&str>>();
-
-            let first = contents.get(0).unwrap();
-            let re = Regex::new(r"(\w) \((\d+)\)").unwrap(); // uses 'raw string'
-            let out = re.find_iter(first);
-
-            println!("{:?}", (out, first));
-        },
-        Err(e) => println!("{}", e),
-    }
-}
-
 #[derive(Debug)]
 struct Node {
     name: String,
     weight: u32,
-    children: Vec<Node>,
+    children: Vec<Node>, // actually connects the references
+    children_data: Vec<String>, // used in the intial pass
+}
+
+fn main() {
+    match get_file() {
+        Ok(contents) => {
+            let lines = contents
+                .split("\n")
+                .filter(|&s| s.len() != 0)
+                .collect::<Vec<&str>>();
+
+            let mut nodes: Vec<Node> = Vec::new();
+
+            let datum = lines.get(0).unwrap();
+
+            // groups;
+            // test (00) -> test, test
+            // 1     2      4
+            let re = Regex::new(r"(\w+) \((\d+)\)( -> (.*))?").unwrap(); // uses 'raw string'
+            let capt = re.captures(datum).unwrap();
+
+            let node = Node {
+                name: String::from(capt.get(1).unwrap().as_str()),
+                weight: capt.get(2)
+                    .unwrap()
+                    .as_str()
+                    .parse::<u32>()
+                    .unwrap(),
+                children: Vec::new(),
+                children_data: match capt.get(4) {
+                    Some(v) => v.as_str()
+                        .split(", ")
+                        .map(|s| s.to_string())
+                        .collect(),
+                    None => Vec::new(),
+                },
+            };
+
+            nodes.push(node);
+
+            println!("{:#?}", nodes);
+        },
+        Err(e) => println!("{}", e),
+    }
 }
 
 fn aoc7p1() {
