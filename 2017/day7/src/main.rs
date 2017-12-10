@@ -24,8 +24,14 @@ fn get_file() -> Result<String, &'static str> {
 struct Node {
     name: String,
     weight: u32,
-    children: Vec<Node>, // actually connects the references
+    children: Vec<&Node>, // actually connects the references
     children_data: Vec<String>, // used in the intial pass
+}
+
+impl Node {
+    fn add_child(&mut self, node: &Node) {
+        self.children.push(node);
+    }
 }
 
 fn main() {
@@ -38,41 +44,57 @@ fn main() {
 
             let mut nodes: Vec<Node> = Vec::new();
 
-            let datum = lines.get(0).unwrap();
-
-            // groups;
-            // test (00) -> test, test
-            // 1     2      4
             let re = Regex::new(r"(\w+) \((\d+)\)( -> (.*))?").unwrap(); // uses 'raw string'
-            let capt = re.captures(datum).unwrap();
 
-            let node = Node {
-                name: String::from(capt.get(1).unwrap().as_str()),
-                weight: capt.get(2)
-                    .unwrap()
-                    .as_str()
-                    .parse::<u32>()
-                    .unwrap(),
-                children: Vec::new(),
-                children_data: match capt.get(4) {
-                    Some(v) => v.as_str()
-                        .split(", ")
-                        .map(|s| s.to_string())
-                        .collect(),
-                    None => Vec::new(),
-                },
-            };
+            for datum in lines {
 
-            nodes.push(node);
+                // let datum = lines.get(0).unwrap();
 
-            println!("{:#?}", nodes);
+                // groups;
+                // test (00) -> test, test
+                // 1     2      4
+                let capt = re.captures(datum).unwrap();
+
+                let mut node = Node {
+                    name: String::from(capt.get(1).unwrap().as_str()),
+                    weight: capt.get(2)
+                        .unwrap()
+                        .as_str()
+                        .parse::<u32>()
+                        .unwrap(),
+                    children: Vec::new(),
+                    children_data: match capt.get(4) {
+                        Some(v) => v.as_str()
+                            .split(", ")
+                            .map(|s| s.to_string())
+                            .collect(),
+                        None => Vec::new(),
+                    },
+                };
+
+                nodes.push(node);
+                // println!("{}", nodes.len());
+                //http://sprunge.us/DQJa?diff
+            }
+
+            for node in &nodes {
+                if node.children_data.len() != 0 {
+                    // convert children_Data into references`
+                    for child in &node.children_data {
+                        let reference = nodes.iter()
+                            .find(|&x| x.name == *child)
+                            .unwrap();
+
+                        node.add_child(reference);
+                        // println!("{:?}", *reference);
+                    }
+                }
+            }
+
+            // println!("{:#?}", nodes);
         },
         Err(e) => println!("{}", e),
     }
-}
-
-fn aoc7p1() {
-
 }
 
 
