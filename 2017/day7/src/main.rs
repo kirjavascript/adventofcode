@@ -20,11 +20,18 @@ fn get_file() -> Result<String, &'static str> {
     Ok(contents)
 }
 
-#[derive(Debug)]
+#[derive(Debug)] // used in the intial pass
 struct Node {
     name: String,
     weight: u32,
-    children_data: Vec<String>, // used in the intial pass
+    children_data: Vec<String>,
+}
+
+#[derive(Debug)]
+struct TreeNode {
+    name: String,
+    weight: u32,
+    children: Vec<Node>,
 }
 
 fn main() {
@@ -53,7 +60,6 @@ fn main() {
                         .as_str()
                         .parse::<u32>()
                         .unwrap(),
-                    // children: Vec::new(),
                     children_data: match capt.get(4) {
                         Some(v) => v.as_str()
                             .split(", ")
@@ -66,8 +72,8 @@ fn main() {
                 nodes.push(node);
             }
 
+            // traverse to parent node
             let mut current = &nodes.iter().nth(0).unwrap().name;
-
             let result = loop {
                 match nodes.iter().find(|&n| {
                     n.children_data.contains(current)
@@ -77,7 +83,16 @@ fn main() {
                 }
             };
 
-            println!("{:#?}", result);
+            println!("part 1: {}", result);
+
+            // create a real tree
+            let mut tree: Vec<Node> = Vec::new();
+
+            println!("{:#?}", nodes.len());
+
+            let qaz = nodes.iter().find(|&n| true);
+
+            println!("{:#?}", nodes.len());
         },
         Err(e) => println!("{}", e),
     }
