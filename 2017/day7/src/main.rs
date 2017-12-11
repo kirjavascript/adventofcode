@@ -24,14 +24,7 @@ fn get_file() -> Result<String, &'static str> {
 struct Node {
     name: String,
     weight: u32,
-    // children: Vec<Node>, // actually connects the references
     children_data: Vec<String>, // used in the intial pass
-}
-
-impl Node {
-    // fn add_child(&mut self, node: &Node) {
-    //     self.children.push(node);
-    // }
 }
 
 fn main() {
@@ -47,8 +40,6 @@ fn main() {
             let re = Regex::new(r"(\w+) \((\d+)\)( -> (.*))?").unwrap(); // uses 'raw string'
 
             for datum in lines {
-
-                // let datum = lines.get(0).unwrap();
 
                 // groups;
                 // test (00) -> test, test
