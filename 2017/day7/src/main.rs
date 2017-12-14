@@ -85,7 +85,7 @@ fn main() {
 
             println!("part 1: {}", result);
 
-            // create a real tree
+            // create a real tree (incomplete)
             let mut tree: Vec<Node> = Vec::new();
 
             println!("{:#?}", nodes.len());
