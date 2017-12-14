@@ -13,9 +13,7 @@ fn main() {
         .collect();
 
     let mut registers: HashMap<&str, i32> = HashMap::new();
-
-    let inc = "inc";
-    let dec = "dec";
+    let mut top_list: Vec<i32> = Vec::new();
 
     for capt in cmds {
 
@@ -47,10 +45,14 @@ fn main() {
             }
         }
 
+        top_list.push(*registers.iter().max_by(|a, b|a.1.cmp(b.1)).unwrap().1);
+
     }
 
+    let top = registers.iter().max_by(|a, b|a.1.cmp(b.1)).unwrap().1;
+    let top_list_top = top_list.iter().max().unwrap();
 
-    println!("{:#?}", registers);
+    println!("p1: {:#?} p2: {:#?}", top, top_list_top);
 
 }
 
