@@ -17,25 +17,39 @@ fn flip(list: &mut Vec<i32>, qty: usize) {
 }
 
 fn main() {
-    let to_i32 = |s: &str| s.parse::<i32>().unwrap();
 
     let list_size: usize = 256;
 
-    let lengths: Vec<i32> = INPUT.split(",").map(to_i32).collect();
+    // p2
+    let mut extra = vec![17, 31, 73, 47, 23];
+    let mut lengths = String::from(INPUT).into_bytes();
+    lengths.append(&mut extra);
+    let lengths = lengths;
+
+    // p1
+    // let to_i32 = |s: &str| s.parse::<i32>().unwrap();
+    // let lengths: Vec<i32> = INPUT.split(",").map(to_i32).collect();
+
     let mut list = (0..list_size as i32).collect::<Vec<i32>>();
     let mut skip = 0;
     let mut pos: usize = 0;
 
-    for v in lengths {
-        let value = v as usize;
-        flip(&mut list, value);
-        cycle(&mut list, value + skip);
-        pos += value + skip;
-        skip += 1;
+    for _ in 0..64 { // p2
+        for v in &lengths {
+            let value = *v as usize;
+            flip(&mut list, value);
+            cycle(&mut list, value + skip);
+            pos += value + skip;
+            skip += 1;
+        }
     }
 
     // restore order of list
     cycle(&mut list, list_size - (pos % list_size));
 
-    println!("{:?}", list[0] * list[1]);
+    for chunk in list.chunks(16) {
+        let out = format!("{:x}", chunk.iter().fold(0, |acc, c| acc ^ c));
+        let out = format!("{:0>2}", out);
+        print!("{}", out);
+    }
 }
