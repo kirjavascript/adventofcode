@@ -11,7 +11,11 @@ struct Point {
 }
 
 impl Point {
-    fn _move(&mut self, direction: &Direction) {
+    fn new() -> Point {
+        Point { x: 0, y: 0, z: 0 }
+    }
+
+    fn _move<'a>(&'a mut self, direction: &Direction) -> &'a Self {
         match direction {
             &Direction::Ne => {self.x += 1; self.z -= 1;},
             &Direction::Se => {self.x += 1; self.y -= 1;},
@@ -20,6 +24,7 @@ impl Point {
             &Direction::Nw => {self.y += 1; self.x -= 1;},
             &Direction::N => {self.y += 1; self.z -= 1;},
         }
+        self
     }
 
     fn max_abs(&self) -> i32 {
@@ -29,12 +34,11 @@ impl Point {
 
 fn main() {
     let path: Vec<Direction> = get_path();
-    let mut pos = Point { x: 0, y: 0, z: 0 };
+    let mut pos = Point::new();
     let mut top = 0;
 
     path.iter().for_each(|d| {
-        pos._move(&d);
-        top = top.max(pos.max_abs())
+        top = top.max(pos._move(&d).max_abs())
     });
 
     println!("{:?}", (pos.max_abs(), top));
