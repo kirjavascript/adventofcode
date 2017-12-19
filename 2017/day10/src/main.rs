@@ -50,6 +50,7 @@ fn main() {
     for chunk in list.chunks(16) {
         let out = format!("{:x}", chunk.iter().fold(0, |acc, c| acc ^ c));
         let out = format!("{:0>2}", out);
+// 15:45:09 <+j`ey> Kirjava:         let out = format!("{:0>2x}", chunk.iter().fold(0, |acc, c| acc ^ c));
         print!("{}", out);
     }
 }
