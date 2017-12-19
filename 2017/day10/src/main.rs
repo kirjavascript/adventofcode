@@ -48,8 +48,7 @@ fn main() {
     cycle(&mut list, list_size - (pos % list_size));
 
     for chunk in list.chunks(16) {
-        let out = format!("{:x}", chunk.iter().fold(0, |acc, c| acc ^ c));
-        let out = format!("{:0>2}", out);
+        let out = format!("{:0>2x}", chunk.iter().fold(0, |acc, c| acc ^ c));
         print!("{}", out);
     }
 }
