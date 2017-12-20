@@ -1,12 +1,40 @@
 extern crate regex;
 use regex::Regex;
 
+#[derive(Debug)]
+struct Program {
+    id: u32,
+    connections: Vec<u32>,
+}
+
 fn main() {
     let re = Regex::new(r"(\d+) <-> (.+)").unwrap();
 
     let lines: Vec<&str> = INPUT.split("\n").filter(|&s| s.len() != 0).collect();
 
-    println!("{:?}", lines);
+    let mut programs: Vec<Program> = Vec::new();
+
+    for datum in lines {
+        let capt = re.captures(datum).unwrap();
+
+        let prog = Program {
+            id: capt.get(1).unwrap().as_str().parse::<u32>().unwrap(),
+            connections: capt.get(2)
+                .unwrap()
+                .as_str()
+                .split(", ")
+                .map(|s| s.to_string().parse::<u32>().unwrap())
+                .collect(),
+        };
+
+        programs.push(prog);
+    }
+
+    let programs = programs;
+
+    let mut groups: Vec<Vec<u32>> = Vec::new();
+
+    println!("{:#?}", programs);
 }
 
 // --- Day 12: Digital Plumber ---
