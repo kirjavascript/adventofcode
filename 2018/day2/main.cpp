@@ -2,14 +2,16 @@
 #include <fstream>
 #include <string>
 #include <map>
+#include <vector>
 using namespace std;
 
 int main () {
     string line;
     ifstream myfile ("input.txt");
-    int two = 0;
-    int three = 0;
     if (myfile.is_open()) {
+        // part 1
+        int two = 0;
+        int three = 0;
         while (getline (myfile,line)) {
             map<char, int> letters;
             for(char& c : line) {
@@ -31,10 +33,33 @@ int main () {
                 }
             }
         }
+        cout << "part 1: " << two * three << endl;
+
+        // part 2
+        myfile.clear();
+        myfile.seekg(0);
+        vector<string> lines;
+        while (getline (myfile,line)) {
+            for (auto it = lines.begin(); it != lines.end(); ++it) {
+                int differences = 0;
+                int last_hit_index = -1;
+                for (int i = 0; i < line.length(); i++) {
+                    if (line[i] != (*it)[i]) {
+                        differences++;
+                        last_hit_index = i;
+                    }
+                }
+                if (differences == 1) {
+                    cout << "part 2: " << line.erase(last_hit_index, 1) << endl;
+                    return 0;
+                }
+            }
+            lines.push_back(line);
+        }
+
+
         myfile.close();
 
-        cout << two << ' ' << three << endl;
-        cout << two * three << endl;
     }
 
     else cout << "Unable to open file";
