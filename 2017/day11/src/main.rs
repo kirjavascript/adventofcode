@@ -14,6 +14,9 @@ impl Point {
     fn new() -> Point {
         Point { x: 0, y: 0, z: 0 }
     }
+    fn clone(&self) -> Point {
+        Point { x: self.x, y: self.y, z: self.z }
+    }
 
     fn _move<'a>(&'a mut self, direction: &Direction) -> &'a Self {
         match direction {
