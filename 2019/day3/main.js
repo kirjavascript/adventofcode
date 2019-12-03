@@ -3,32 +3,44 @@ L1004,U110,R738,D383,R606,U840,L123,D756,L234,D585,R475,U429,L585,D615,L859,D669
 
 // part 2
 //
-a={},o=[],L=0;
-input.split`\n`.map(line => {
-    s=x=y=0;
-    line.split`,`.map(d => {
-        for(i=+d.slice(1);i--;) {
-            ({
-                R:_=>x+=1,
-                D:_=>y-=1,
-                L:_=>x-=1,
-                U:_=>y+=1,
-            })[d[0]](++s);
+// a=L=o=[];
+// input.split`\n`.map(line => {
+//     s=x=y=0;
+//     line.split`,`.map(d => {
+//         for(i=+d.slice(1);i--;L?a[r]=a[r]||s:a[r]&&(o.push(a[r]+s),a[r]=0)) {
+//             ({
+//                 R:_=>x+=1,
+//                 D:_=>y-=1,
+//                 L:_=>x-=1,
+//                 U:_=>y+=1,
+//             })[d[0]](++s);
+//             r=[]+[x, y]
+//         }
+//     })
+//     L=0;
+// })
 
-            r=[]+[x, y]
-            // a[r]=a[r]?(o.push(t=a[r]+++s),t):++s;
-            if (L) {
-                a[r]&&(o.push(a[r]+s),a[r]=0)
-            } else {
-                a[r]=a[r]||s;
-            }
+// console.log(o.sort((a,b)=>a-b)[0])
+
+a=[];
+input.split`\n`.map((line,j) => {
+    s=x=0;
+    line.replace(/.(\d+)/g,(h,i)=>{
+        for(;i--;r={}+x,j?a[r]&&(a.push(a[r]+s),a[r]=0):a[r]=a[r]||s) {
+            x+=({
+                R:1,
+                D:-1e4,
+                L:-1,
+                U:1e4,
+            })[h[0]];
+            s++;
         }
     })
-    L=1;
 })
-q = [...o].sort((a,b)=>a-b)
 
-console.log(q, q[0])
+console.log(a.sort((a,b)=>a-b)[0])
+
+a=[],store.get``.split`\n`.map((o,n)=>{s=x=0,o.replace(/.(\d+)/g,(o,e)=>{for(;e--;r={}+x,n?a[r]&&(a.push(a[r]+s),a[r]=0):a[r]=a[r]||s)x+={R:1,D:-1e4,L:-1,U:1e4}[o[0]],s++})}),a.sort((a,r)=>a-r)[0]
 
 // part 1
 // const [a,b]=input.split`\n`.map(line => {
