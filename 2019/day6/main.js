@@ -40,4 +40,4 @@ input = require('fs')
 // }
 // eval(['01','10'].map(s=>G(s[0]).filter((d,i)=>d!=G(s[1])[i]).length-1).join`+`)
 
-Q=[...input.matchAll(/(.+)\)(.+)/gm)],G=(n=>{for(Y=Q.find(t=>(+n?/SAN/:/YOU/).test(t[2])),o=[];[z,n,b]=Y,"COM"!=n;o.unshift(z))Y=Q.find(t=>t[2]==n);return o}),eval(["01","10"].map(n=>G(n[0]).filter((t,o)=>t!=G(n[1])[o]).length-1).join`+`)
+// Q=[...input.matchAll(/(.+)\)(.+)/gm)],G=(n=>{for(Y=Q.find(t=>(+n?/SAN/:/YOU/).test(t[2])),o=[];[z,n,b]=Y,"COM"!=n;o.unshift(z))Y=Q.find(t=>t[2]==n);return o}),eval(["01","10"].map(n=>G(n[0]).filter((t,o)=>t!=G(n[1])[o]).length-1).join`+`)
