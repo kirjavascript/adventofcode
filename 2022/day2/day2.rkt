@@ -13,11 +13,9 @@
                  "Y" 1
                  "Z" 2)) ; + 1
 
-
 #| 0 0 d 3 |#
 #| 0 1 l 0 +1 |#
 #| 0 2 w 6 +2 % 3 |#
-
 
 (define (getMoves d) (list
                        (hash-ref player1 (first d))
@@ -41,4 +39,4 @@
                    ) lines))
 
 
-(print (apply + out))
+(print (apply + out)) ; sum
