@@ -33,18 +33,12 @@ document.body.innerText.trim().split`\n`.reduce((e,n)=>(x={r:0,g:0,b:0},n.replac
 
 // d3 p1
 
-// I=document.body.innerText;
-
-
-// W = 141;
-
-// A=0;I.replace(/\d+/g,(n,p)=>{
-//     /[^\d\.\n]/.test(
-//         [
-//         I.substring(p-=1,p+(l=([]+n).length)+2),
-//         I.substring(p+=W,p+l+2),
-//         I.substring(p-=W*2,p+l+2),
-//     ].join``)&&(A+=+n)
-// });A
-
 I=document.body.innerText,A=0,I.replace(/\d+/g,(n,e)=>{for(i=a=0;3>i;a+=I.substring(e-=[1,-141,282][i++],e+([]+n).length+2));/[^\d\.\n]/.test(a)&&(A+=+n)}),A
+
+// d3 p2
+
+A=128;I=document.body.innerText.replace(/\*/g,_=>String.fromCharCode(A++))
+A=0;G={};I.replace(/\d+/g,(n,e)=>{
+    for(i=a=0;3>i;a+=I.substring(e-=[1,-141,282][i++],e+([]+n).length+2))
+    (V=a.match(/[\u0080-\u03FF]/)?.[0])&&(G[V]?A+=G[V]*n:G[V]=n)
+}),A
