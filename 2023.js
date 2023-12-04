@@ -21,11 +21,13 @@ document.body.innerText.trim().split`\n`.reduce((A, d, i) =>
             (d) =>
                 !d.replace(
                     / ?(\d+) (\w+),? ?/g,
-                    (_, a, [b]) => ({ r: 13, g: 14, b: 15 }[b] > a && []),
-                ),
+                    (_, a, [b]) => ({ r: 13, g: 14, b: 15 }[b] > a && [])
+                )
         )?i+1:0,
     0
-);
+)
+
+document.body.innerText.trim().split`\n`.reduce((A,d,i)=>A+=d.replace(/.+:/,[]).split(';').every((d)=>!d.replace(/?(\d+)(\w+),??/g,(_,a,[b])=>({r:13,g:14,b:15}[b]>a&&[])))?i+1:0,0)
 
 // d2 p2
 
@@ -37,8 +39,8 @@ I=document.body.innerText,A=0,I.replace(/\d+/g,(n,e)=>{for(i=a=0;3>i;a+=I.substr
 
 // d3 p2
 
-A=128;I=document.body.innerText.replace(/\*/g,_=>String.fromCharCode(A++))
+A=99;I=document.body.innerText.replace(/\*/g,_=>String.fromCharCode(A++));
 A=0;G={};I.replace(/\d+/g,(n,e)=>{
-    for(i=a=0;3>i;a+=I.substring(e-=[1,-141,282][i++],e+([]+n).length+2))
-    (V=a.match(/[\u0080-\u03FF]/)?.[0])&&(G[V]?A+=G[V]*n:G[V]=n)
+    for(i=a=0;3>i;a+=I.substring(e-=[1,-141,282][i++],e+([]+n).length+2));
+    (V=[...a].find(c=>c>'b'))&&(G[V]?A+=G[V]*n:G[V]=n)
 }),A
