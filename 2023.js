@@ -34,4 +34,4 @@ c=0,(R=i=>{i.map(([i,l,n])=>{c++,R(A.slice(n,n+l.filter?.(l=>i.includes(l)).leng
 
 // d5 p1
 
-(M={},a=9e9,I=document.body.innerText).replace(/(\w+)-to-(\w+).+:\n([\s\S]+?)(\n\n|$)/g,(_,a,b,c)=>M[a]=[b,c.split`\n`]);I.split`\n`[0].match(/\d+/g).map(s=>{for(t='seed';t[2]>'c';t=n)[n,m]=M[t],s=+s,m.some(A=>([D,S,L]=A.split` `,s>=+S&&+S+ +L>s?s=s-+S+ +D:0));a>s?a=s:0});a
+a=9e9,I=document.body.innerText,M=I.match(/p:\n([\s\S]+?)(\n\n|$)/g).map(d=>d.match(/(\d+ ?){3}/g));I.split`\n`[0].match(/\d+/g).map(s=>{M.map(m=>(s=+s,m.some(A=>([D,S,L]=A.split` `,s>=+S&&+S+ +L>s?s=s-+S+ +D:0)))),a>s?a=s:0});a
