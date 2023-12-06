@@ -38,4 +38,8 @@ a=9e9,I=document.body.innerText,M=I.match(/p:\n([\s\S]+?)(\n\n|$)/g).map(d=>d.ma
 
 // d5 p2
 
-a=9e9,I=document.body.innerText,M=I.match(/p:\n([\s\S]+?)(\n\n|$)/g).map(s=>s.match(/(\d+ ?){3}/g)),I.split`\n`[0].match(/\d+ \d+/g).map(n=>{for([n,l]=n.split` `,i=l;i--;)s=+n+i,M.map(a=>a.some(a=>([D,S,L]=a.split` `,s>=+S&&+S+ +L>s?s=s-+S+ +D:0))),a>s&&(a=s)}),a
+a=9e9,I=document.body.innerText,M=I.match(/p:\n([\s\S]+?)(\n\n|$)/g).map(s=>s.match(/(\d+ ?){3}/g)),I.split`\n`[0].match(/\d+ \d+/g).map(n=>{for([n,l]=n.split` `,i=l;i--;)s=+n+i,M.map(a=>a.some(a=>([D,S,L]=a.split` `,s>=+S&&+S+ +L>s?s=s-+S+ +D:0))),a>s?a=s:0}),a
+
+// d6 p1
+
+for(I=document.body.innerText.match(/\d+/g),A=1,q=4;q--;){for(n=+I[q],D=+I[q+4],v=0,i=n;i--;(n-(i+1))*(i+1)>D?v++:0);A*=v}A
