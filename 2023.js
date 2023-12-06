@@ -35,3 +35,7 @@ c=0,(R=i=>{i.map(([i,l,n])=>{c++,R(A.slice(n,n+l.filter?.(l=>i.includes(l)).leng
 // d5 p1
 
 a=9e9,I=document.body.innerText,M=I.match(/p:\n([\s\S]+?)(\n\n|$)/g).map(d=>d.match(/(\d+ ?){3}/g));I.split`\n`[0].match(/\d+/g).map(s=>{M.map(m=>(s=+s,m.some(A=>([D,S,L]=A.split` `,s>=+S&&+S+ +L>s?s=s-+S+ +D:0)))),a>s?a=s:0});a
+
+// d5 p2
+
+a=9e9,I=document.body.innerText,M=I.match(/p:\n([\s\S]+?)(\n\n|$)/g).map(s=>s.match(/(\d+ ?){3}/g)),I.split`\n`[0].match(/\d+ \d+/g).map(n=>{for([n,l]=n.split` `,i=l;i--;)s=+n+i,M.map(a=>a.some(a=>([D,S,L]=a.split` `,s>=+S&&+S+ +L>s?s=s-+S+ +D:0))),a>s&&(a=s)}),a
