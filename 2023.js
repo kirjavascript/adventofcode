@@ -1,5 +1,3 @@
-// adventofgolf
-//
 // cheat at AOC by pasting these into your browser console on the input page
 
 // d1 p1
@@ -32,4 +30,8 @@ A=0;document.body.innerText.replace(/((\d+ +)+)\| +((\d+\s+)+)/g,(...[,a,,b])=>{
 
 // d4 p2
 
-c=0,(R=i=>{i.map(([i,l,n])=>{c++,R(A.slice(n,n+l.filter?.(l=>i.includes(l)).length))})})(A=document.body.innerText.split`\n`.map((i,l)=>[...i.slice(10).split(/ \| +/).map(i=>i.split(/ +/)),l+1])),c-1
+c=0,(R=i=>{i.map(([i,l,n])=>{c++,R(A.slice(n,n+l.filter?.(l=>i.includes(l)).length))})})(A=document.body.innerText.split`\n`.map((i,l)=>[...i.slice(10).split(/ \| +/).map(i=>i.split(/ +/)),l+1])),--c
+
+// d5 p1
+
+(M={},a=9e9,I=document.body.innerText).replace(/(\w+)-to-(\w+).+:\n([\s\S]+?)(\n\n|$)/g,(_,a,b,c)=>M[a]=[b,c.split`\n`]);I.split`\n`[0].match(/\d+/g).map(s=>{for(t='seed';t[2]>'c';t=n)[n,m]=M[t],s=+s,m.some(A=>([D,S,L]=A.split` `,s>=+S&&+S+ +L>s?s=s-+S+ +D:0));a>s?a=s:0});a
