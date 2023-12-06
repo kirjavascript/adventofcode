@@ -43,3 +43,7 @@ a=9e9,I=document.body.innerText,M=I.match(/p:\n([\s\S]+?)(\n\n|$)/g).map(s=>s.ma
 // d6 p1
 
 for(I=document.body.innerText.match(/\d+/g),A=1,q=4;q--;){for(n=+I[q],D=+I[q+4],v=0,i=n;i--;(n-(i+1))*(i+1)>D?v++:0);A*=v}A
+
+// d6 p2
+
+for(I=document.body.innerText.replace(/[^\d\n]/g,[]).split`\n`,v=0,i=I[0];i--;(I[0]-(i+1))*(i+1)>I[1]?v++:0)v
