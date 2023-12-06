@@ -10,7 +10,7 @@ n=`_|one|two|three|four|five|six|seven|eight|nine`,a=0,$('pre').innerText.trim()
 
 // d2 p1
 
-$('pre').innerText.trim().split`\n`.reduce((A,d,i)=>A+=d.replace(/.+:/,[]).split(';').every((d)=>!d.replace(/?(\d+)(\w+),??/g,(_,a,[b])=>({r:13,g:14,b:15}[b]>a&&[])))?i+1:0,0)
+$('pre').innerText.trim().split`\n`.reduce((A,d,i)=>A+=d.replace(/.+: /,[]).split(';').every(d=>!d.replace(/ ?(\d+) (\w+),? ?/g,(_,a,[b])=>({r:13,g:14,b: 15}[b]>a&&[])))?i+1:0,0)
 
 // d2 p2
 
