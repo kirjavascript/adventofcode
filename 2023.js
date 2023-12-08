@@ -2,19 +2,19 @@
 
 // d1 p1
 
-eval($('*').innerText.trim().split`\n`.map(d=>(q=d.replace(/[^\d]/g,''),q[0]+q.at(-1))).join`+`)
+$('*').innerText.trim``.split`\n`.reduce((a,d)=>a+ +(q=d.replace(/[^\d]/g,[]),q[0]+q.at(-1)),0)
 
 // d1 p2
 
-n=`_|one|two|three|four|five|six|seven|eight|nine`,a=0,$('*').innerText.trim().split`\n`.map(t=>(s=[...t].map((a,i)=>(q=n.split`|`.indexOf(t.match(RegExp(`^.{${i}}(${n})`))?.[1]),~q?q:1/a?a:[])).join``,a+=+(s[0]+s.at(-1)))),a
+n=`_|one|two|three|four|five|six|seven|eight|nine`,a=0,$('*').innerText.trim``.split`\n`.map(t=>(s=[...t].map((a,i)=>(q=n.split`|`.indexOf(t.match(RegExp(`^.{${i}}(${n})`))?.[1]),~q?q:1/a?a:[])).join``,a+=+(s[0]+s.at(-1)))),a
 
 // d2 p1
 
-$('*').innerText.trim().split`\n`.reduce((A,d,i)=>A+=d.replace(/.+: /,[]).split(';').every(d=>!d.replace(/ ?(\d+) (\w+),? ?/g,(_,a,[b])=>({r:13,g:14,b: 15}[b]>a&&[])))?i+1:0,0)
+$('*').innerText.trim``.split`\n`.reduce((A,d,i)=>A+=d.replace(/.+: /,[]).split(';').every(d=>!d.replace(/ ?(\d+) (\w+),? ?/g,(_,a,[b])=>({r:13,g:14,b: 15}[b]>a&&[])))?i+1:0,0)
 
 // d2 p2
 
-$('*').innerText.trim().split`\n`.reduce((e,n)=>(x={r:0,g:0,b:0},n.replace(/(\d+) (\w)/g,(_,n,r)=>{x[r]=n>+x[r]?n:x[r]}),e+x.r*x.g*x.b),0)
+$('*').innerText.trim``.split`\n`.reduce((e,n)=>(x={r:0,g:0,b:0},n.replace(/(\d+) (\w)/g,(_,n,r)=>{x[r]=n>+x[r]?n:x[r]}),e+x.r*x.g*x.b),0)
 
 // d3 p1
 
@@ -36,7 +36,7 @@ c=0,(R=i=>{i.map(([i,l,n])=>{c++,R(A.slice(n,n+l.filter?.(l=>i.includes(l)).leng
 
 a=9e9,I=$('*').innerText,M=I.match(/p:\n([\s\S]+?)(\n\n|$)/g).map(d=>d.match(/(\d+ ?){3}/g));I.split`\n`[0].match(/\d+/g).map(s=>{M.map(m=>(s=+s,m.some(A=>([D,S,L]=A.split` `,s>=+S&&+S+ +L>s?s=s-+S+ +D:0)))),a>s?a=s:0});a
 
-// d5 p2
+// d5 p2 (takes a few hours)
 
 a=9e9,I=$('*').innerText,M=I.match(/p:\n([\s\S]+?)(\n\n|$)/g).map(s=>s.match(/(\d+ ?){3}/g)),I.split`\n`[0].match(/\d+ \d+/g).map(n=>{for([n,l]=n.split` `,i=l;i--;)s=+n+i,M.map(a=>a.some(a=>([D,S,L]=a.split` `,s>=+S&&+S+ +L>s?s=s-+S+ +D:0))),a>s?a=s:0}),a
 
@@ -46,4 +46,8 @@ for(I=$('*').innerText.match(/\d+/g),A=1,q=4;q--;){for(n=+I[q],D=+I[q+4],v=0,i=n
 
 // d6 p2
 
-for(I=$('*').innerText.replace(/[^\d\n]/g,[]).split`\n`,v=0,i=I[0];i--;(I[0]-(i+1))*(i+1)>I[1]?v++:0)v
+for(I=$('*').innerText.replace(/[^\d\n]/g,[]).split`\n`,i=I[v=0];i--;v+=((I[0]-(i+1))*(i+1)>I[1]))v
+
+// d7 p1
+
+eval(unescape(escape`󙌨󘬪󘬩󛭩󫭮󩝲󥍥󮍴󛭴󬭩󫝠󨌮󬽰󫍩󭍠󧍮󨌮󫝡󬌨󪜽󟭻󩭯󬬨󨼠󪝮󦽨󛍢󧜽󪜮󬽰󫍩󭍠󘍠󛍲󟜰󛍍󟝻󯜬󦼮󛬮󪍝󛭭󨝰󚍲󟜾󣝛󬭝󟝍󦽲󧜿󣝛󬭝󚼱󞬱󚜬󣜩󨼽󣝛󨽝󛍣󟬳󟽲󟝣󚼱󞭣󟬲󟽲󟝲󟼴󞬳󞭣󟬱󙬦󚍲󟬲󟽲󟜴󞭲󟝲󟼲󞬱󚜻󬭥󭍵󬭮󦽛󛬮󛭨󧜮󫝡󬌨󬬽󟬢󜬳󝌵󝬷󞌹󥍊󤝋󠜢󛭩󫭤󩝸󣽦󚍲󚜩󛍲󛍢󧝽󚜮󬽯󬭴󚌨󦽲󛍮󧜬󦽣󛍥󧜩󟜾󫬽󟝥󟼨󪜽󨼮󩭩󫭤󢝮󩍥󮌨󚍩󛍮󚜽󟭩󘜽󬭛󫭝󚜬󬭛󪝝󛝣󦽩󧜩󞭮󛝥󚜮󬭥󩍵󨽥󚌨󬬬󦼬󛍩󧜬󫬩󟜾󬬫󪜪󚍮󚼱󚜬󜌩`.replace(/u../g,'')))
